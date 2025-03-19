@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-size: 18px;
 }
 
 .progress {
@@ -86,7 +87,7 @@
 }
 
 .controls__item__text {
-    font-size: 16px;
+    /* font-size: 18px; */
     font-weight: 400;
     margin-top: 2px; 
 }
