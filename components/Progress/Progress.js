@@ -62,7 +62,7 @@ class Progress extends HTMLElement {
     }
 
     render() {
-        this.setStrokeLength();
+        this.updateCircleProperties();
         this.setBarValue();
 
         let valueInput = this.shadowRoot.querySelector('#value');
@@ -75,7 +75,7 @@ class Progress extends HTMLElement {
         hideInput.addEventListener('change', (event) => this.toggleCircleVisibility());
     }
     
-    setStrokeLength() {
+    updateCircleProperties() {
         let circle = this.shadowRoot.querySelector('.svg__circle-bg');
         this.strokeLength = Math.ceil(circle.getTotalLength()) + 1;
         circle.style.setProperty('stroke-dasharray', this.strokeLength);
