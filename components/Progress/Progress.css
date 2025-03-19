@@ -10,7 +10,6 @@
     transition: all 0.3s;
     padding: 10px;
     margin: 10px auto;
-    /* border: 1px solid red; */
 }
 
 .progress__container {
@@ -40,7 +39,6 @@
     animation-delay: -4s;
 }
 
-/* --- */
 @keyframes rotation {
     from {
       transform: rotate(0deg);
@@ -51,10 +49,8 @@
 }
 
 .svg__circle-bar {
-    --strokeLength: 290;
-    --bar-value: 50;
-    stroke-dasharray: var(--strokeLength);
-    stroke-dashoffset: calc((100 - var(--bar-value)) * (var(--strokeLength) / 100));;
+    stroke-dasharray: 290;
+    stroke-dashoffset: 145;
 }
 
 .progress__controls {
@@ -139,7 +135,7 @@
     transform: translateX(15px);
 }
 
-/********** remove arrowsfrom number input **********/
+/********** remove arrows from number input **********/
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

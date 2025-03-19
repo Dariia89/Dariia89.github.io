@@ -47,9 +47,11 @@ template.innerHTML = `
 
 class Progress extends HTMLElement {
     strokeLength = 0;
+    barValue = 50;
+
     constructor() {
         super();
-
+        
         this.attachShadow({mode: 'open'});
         this.shadowRoot.append(template.content.cloneNode(true));
     }
@@ -75,8 +77,19 @@ class Progress extends HTMLElement {
     
     setStrokeLength() {
         let circle = this.shadowRoot.querySelector('.svg__circle-bg');
-        this.strokeLength = Math.ceil(circle.getTotalLength());
-        circle.style.setProperty('--strokeLength', this.strokeLength);
+        this.strokeLength = Math.ceil(circle.getTotalLength()) + 1;
+        circle.style.setProperty('stroke-dasharray', this.strokeLength);
+
+        this.updateStrokeDashOffset();
+    }
+
+    updateStrokeDashOffset() {
+        let circle = this.shadowRoot.querySelector('.svg__circle-bar');
+        circle.style.setProperty('stroke-dashoffset', this.dashOffsetValue);
+    }
+
+    get dashOffsetValue() {
+        return (100 - this.barValue) * (this.strokeLength / 100);
     }
 
     setBarValue(event)  {
@@ -91,7 +104,9 @@ class Progress extends HTMLElement {
             event.target.value = newValue;
             console.error('Внимание! Значение value не может быть отрицательным числом.');
         }
-        this.shadowRoot.querySelector('.svg__circle-bar').style.setProperty('--bar-value', newValue);
+        
+        this.barValue = newValue;
+        this.updateStrokeDashOffset();
     }
 
     toggleCircleAnimation() {
@@ -115,15 +130,6 @@ class Progress extends HTMLElement {
     disconnectedCallback() {
         console.log('Элемент ProgressComponent был удален из документа.');
     }
-    
-    //   static get observedAttributes() {
-    //     // 
-    //   }
-    
-    //   attributeChangedCallback(name, oldValue, newValue) {
-    //     // 
-    //   }
-
 }
 
 export default Progress;
