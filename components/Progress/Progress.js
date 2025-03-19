@@ -16,7 +16,7 @@ template.innerHTML = `
                 <div class="progress__controls">
                     <div class="progress__controls__item">
                         <label class="controls__item">
-                            <input id="value" type="number" class="controls__item__input" value="50" min="0" max="100" >
+                            <input id="value" type="number" pattern="[0-9]*" class="controls__item__input" value="50" min="0" max="100" >
                         </label>
                         <div class="controls__item__text">
                             Value
