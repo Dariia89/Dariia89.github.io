@@ -1,0 +1,167 @@
+* {
+    box-sizing: border-box;
+}
+
+/* refactor */
+.progress {
+    max-width: 568px;
+    max-height: 568px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    transition: all 3s;
+    padding: 20px;
+}
+
+.progress__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 30px 60px;
+}
+
+.progress__circle__container, .progress__controls__container {
+    margin: 20px;
+}
+
+.progress__circle {
+    padding: 0 10px;
+}
+
+.progress__circle_hidden {
+    display: none;
+    transition: all 3s;
+  }
+
+.svg__circle {
+    transform-origin: center;
+    transform: rotate(-90deg);
+}
+
+.svg__circle_rotating {
+    animation: rotation 5s linear infinite;
+}
+
+//
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+}
+
+.svg__circle-bar {
+    --strokeLength: 290;
+    --bar-value: 50;
+    stroke-dasharray: var(--strokeLength);
+    stroke-dashoffset: calc((100 - var(--bar-value)) * (var(--strokeLength) / 100));;
+}
+
+.progress__controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+}
+
+.progress__controls__item {
+    margin-bottom: 6px;
+    display: flex;
+    align-content: center;
+}
+
+.controls__item {
+    margin-right: 15px;
+}
+
+.controls__item__input {
+    width: 46px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 34px;
+}
+
+.controls__item__input:focus {
+   outline: none;
+}
+
+.controls__item__text {
+    font-size: 16px;
+    font-weight: 400;
+    /* redo!!! */
+    margin-top: 2px; 
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    min-width: 46px;
+    height: 30px;
+}
+  
+.switch .switch__input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+.switch__slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #dae6ec;
+    transition: .4s;
+    border-radius: 34px;
+}
+  
+.switch__slider:before {
+    position: absolute;
+    content: "";
+    height: 27px;
+    width: 27px;
+    left: 2px;
+    bottom: 1.5px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+  
+.switch__input:checked + .switch__slider {
+    background-color: #005eff;
+}
+  
+.switch__input:checked + .switch__slider:before {
+    -webkit-transform: translateX(15px);
+    -ms-transform: translateX(15px);
+    transform: translateX(15px);
+}
+
+@media screen and (max-width: 466px) { 
+    .progress__container {
+        padding: 30px 20px;
+    }
+}
+
+
+/********** remove arrowsfrom number input **********/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
