@@ -95,7 +95,17 @@ class Progress extends HTMLElement {
     }
 
     toggleCircleAnimation() {
-        this.shadowRoot.querySelector('.svg__circle').classList.toggle('svg__circle_rotating');
+        let circle = this.shadowRoot.querySelector('.svg__circle');
+        let playState = circle.style.animationPlayState;
+
+        if (!playState) {
+            circle.classList.toggle('svg__circle_rotating');
+            circle.style.setProperty('animation-play-state', 'running');
+        } else if (playState == 'paused') {
+            circle.style.setProperty('animation-play-state', 'running');
+        } else if (playState == 'running') {
+            circle.style.setProperty('animation-play-state', 'paused');
+        }
     }
 
     toggleCircleVisibility() {

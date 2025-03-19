@@ -2,18 +2,14 @@
     box-sizing: border-box;
 }
 
-/* refactor */
 .progress {
     max-width: 568px;
     max-height: 568px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
     background-color: #ffffff;
-    transition: all 3s;
-    padding: 20px;
+    transition: all 0.3s;
+    padding: 10px;
+    margin: 10px auto;
+    /* border: 1px solid red; */
 }
 
 .progress__container {
@@ -21,15 +17,11 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding: 30px 60px;
+    padding: 30px 0; 
 }
 
 .progress__circle__container, .progress__controls__container {
     margin: 20px;
-}
-
-.progress__circle {
-    padding: 0 10px;
 }
 
 .progress__circle_hidden {
@@ -44,6 +36,7 @@
 
 .svg__circle_rotating {
     animation: rotation 5s linear infinite;
+    animation-delay: -4s;
 }
 
 /* --- */
@@ -67,7 +60,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 10px;
 }
 
 .progress__controls__item {
@@ -95,7 +87,6 @@
 .controls__item__text {
     font-size: 16px;
     font-weight: 400;
-    /* redo!!! */
     margin-top: 2px; 
 }
 
@@ -145,13 +136,6 @@
     -ms-transform: translateX(15px);
     transform: translateX(15px);
 }
-
-@media screen and (max-width: 466px) { 
-    .progress__container {
-        padding: 30px 20px;
-    }
-}
-
 
 /********** remove arrowsfrom number input **********/
 /* Chrome, Safari, Edge, Opera */
