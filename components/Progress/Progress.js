@@ -66,7 +66,6 @@ class Progress extends HTMLElement {
         this.setBarValue();
 
         let valueInput = this.shadowRoot.querySelector('#value');
-        valueInput.addEventListener('change', (event) => this.setBarValue(event));
         valueInput.addEventListener('input', (event) => this.validateInput(event.target));
 
         let animateInput = this.shadowRoot.querySelector('#animate');
@@ -86,6 +85,7 @@ class Progress extends HTMLElement {
             input.dataset.prevValue = value;
         }
         input.value = value;
+        this.setBarValue(input, value)
     }
     
     updateCircleProperties() {
@@ -105,19 +105,13 @@ class Progress extends HTMLElement {
         return (100 - this.barValue) * (this.strokeLength / 100);
     }
 
-    setBarValue(event)  {
-        let newValue;
-        
-        if (!event) {
-            newValue = 50;
-        } else if (event?.target.value) {
-            newValue = parseInt(event.target.value);
-            event.target.value = newValue;
+    setBarValue(input = null, value = '')  {
+        if (!input) {
+            this.barValue = 50;
         } else {
-            return;
+            this.barValue = value ? value : 0;
         }
-        
-        this.barValue = newValue;
+
         this.updateStrokeDashOffset();
     }
 
