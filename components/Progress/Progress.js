@@ -16,7 +16,7 @@ template.innerHTML = `
                 <div class="progress__controls">
                     <div class="progress__controls__item">
                         <label class="controls__item">
-                            <input id="value" type="number" pattern="[0-9]*" class="controls__item__input" value="50" min="0" max="100" >
+                            <input id="value" type="text" pattern="[0-9]*" class="controls__item__input" value="50" >
                         </label>
                         <div class="controls__item__text">
                             Value
@@ -67,12 +67,17 @@ class Progress extends HTMLElement {
 
         let valueInput = this.shadowRoot.querySelector('#value');
         valueInput.addEventListener('change', (event) => this.setBarValue(event));
-        
+        valueInput.addEventListener('input', (event) => this.validateInput(event));
+
         let animateInput = this.shadowRoot.querySelector('#animate');
         animateInput.addEventListener('change', (event) => this.toggleCircleAnimation());
 
         const hideInput = this.shadowRoot.querySelector('#hide');
         hideInput.addEventListener('change', (event) => this.toggleCircleVisibility());
+    }
+
+    validateInput(event) {
+        event.target.value = event.target.value.replace(/[^0-9]/g, '');
     }
     
     updateCircleProperties() {
@@ -93,17 +98,22 @@ class Progress extends HTMLElement {
     }
 
     setBarValue(event)  {
-        let newValue = event?.target.value || 50;
+        let newValue;
+        
+        if (!event) {
+            newValue = 50;
+        } else if (event?.target.value) {
+            newValue = parseInt(event.target.value);
+            event.target.value = newValue;
+        } else {
+            return;
+        }
 
         if (newValue > 100) {
             newValue = 100;
             event.target.value = newValue;
             console.error('Внимание! Значение value не может превышать 100.');
-        } else if (newValue < 0) {
-            newValue = 0;
-            event.target.value = newValue;
-            console.error('Внимание! Значение value не может быть отрицательным числом.');
-        }
+        } 
         
         this.barValue = newValue;
         this.updateStrokeDashOffset();
