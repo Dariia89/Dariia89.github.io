@@ -16,7 +16,7 @@ template.innerHTML = `
                 <div class="progress__controls">
                     <div class="progress__controls__item">
                         <label class="controls__item">
-                            <input id="value" type="text" pattern="[0-9]*" class="controls__item__input" value="50" >
+                            <input id="value" type="text" pattern="[0-9]*" class="controls__item__input" value="50" data-prev-value="50" >
                         </label>
                         <div class="controls__item__text">
                             Value
@@ -67,7 +67,7 @@ class Progress extends HTMLElement {
 
         let valueInput = this.shadowRoot.querySelector('#value');
         valueInput.addEventListener('change', (event) => this.setBarValue(event));
-        valueInput.addEventListener('input', (event) => this.validateInput(event));
+        valueInput.addEventListener('input', (event) => this.validateInput(event.target));
 
         let animateInput = this.shadowRoot.querySelector('#animate');
         animateInput.addEventListener('change', (event) => this.toggleCircleAnimation());
@@ -76,8 +76,16 @@ class Progress extends HTMLElement {
         hideInput.addEventListener('change', (event) => this.toggleCircleVisibility());
     }
 
-    validateInput(event) {
-        event.target.value = event.target.value.replace(/[^0-9]/g, '');
+    validateInput(input) {
+        let value = input.value.replace(/[^0-9]|^0+(?=\d)/g, '');
+
+        const numericValue = parseInt(value, 10);
+        if (numericValue > 100) {
+            value = input.dataset.prevValue || '';
+        } else {
+            input.dataset.prevValue = value;
+        }
+        input.value = value;
     }
     
     updateCircleProperties() {
@@ -108,12 +116,6 @@ class Progress extends HTMLElement {
         } else {
             return;
         }
-
-        if (newValue > 100) {
-            newValue = 100;
-            event.target.value = newValue;
-            console.error('Внимание! Значение value не может превышать 100.');
-        } 
         
         this.barValue = newValue;
         this.updateStrokeDashOffset();

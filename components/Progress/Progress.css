@@ -26,8 +26,7 @@
 }
 
 .progress__circle_hidden {
-    display: none;
-    transition: all 3s;
+    visibility: hidden;
   }
 
 .svg__circle {
