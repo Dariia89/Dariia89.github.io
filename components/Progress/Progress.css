@@ -70,7 +70,8 @@
 }
 
 .controls__item__input {
-    width: 46px;
+    display: block;
+    width: 48px;
     height: 30px;
     text-align: center;
     border: 1px solid black;
